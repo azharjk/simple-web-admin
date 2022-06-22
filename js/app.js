@@ -48,16 +48,32 @@ document.addEventListener('DOMContentLoaded', async function () {
     'scrollX': true
   });
 
+  const onSeriesDataClick = (id) => {
+    let chosenData;
+
+    yspTable.data().map((data) => {
+      if (data.id === id) chosenData = data;
+    });
+
+    yspTable.clear();
+    yspTable.rows.add([chosenData]);
+    yspTable.draw();
+
+    renderYspColumnChart([chosenData]);
+    renderYspPieChart([chosenData]);
+    renderYspAreaChart([chosenData]);
+  }
+
   // Year Summary Performance
   const renderYspColumnChart = (data) => {
     const categories = []
     const workTimes = []
     const targetTimes = []
 
-    data.map((v) => {
+    data.map((v, idx) => {
       categories.push(`Day ${v.date}`);
-      workTimes.push(Number(v.work_time));
-      targetTimes.push(Number(v.target_time));
+      workTimes.push({ y: Number(v.work_time), id: v.id });
+      targetTimes.push({ y: Number(v.target_time), id: v.id });
     });
 
     Highcharts.chart('column-ysp-container-chart', {
@@ -81,14 +97,26 @@ document.addEventListener('DOMContentLoaded', async function () {
       }, {
         name: 'Target Time (Hour)',
         data: targetTimes
-      }]
+      }],
+      plotOptions: {
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function () {
+                onSeriesDataClick(this.id)
+              }
+            }
+          }
+        }
+      }
     });
   }
 
   const renderYspPieChart = (data) => {
     const workTimeAndAchievement = []
     data.map((v) => {
-      workTimeAndAchievement.push([`Day ${v.date}`, Number(v.achievement)]);
+      workTimeAndAchievement.push({ y: Number(v.achievement), id: v.id, name: `Day ${v.date}` });
     });
 
     Highcharts.chart('pie-ysp-container-chart', {
@@ -113,6 +141,16 @@ document.addEventListener('DOMContentLoaded', async function () {
             enabled: true,
             format: '<b>{point.name}</b>: {point.percentage:.1f} %'
           }
+        },
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function () {
+                onSeriesDataClick(this.id)
+              }
+            }
+          }
         }
       },
     });
@@ -126,9 +164,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     data.map((v) => {
       categories.push(`Day ${v.date}`);
-      workTimes.push(Number(v.work_time));
-      targetTimes.push(Number(v.target_time));
-      overtimes.push(Number(v.overtime));
+      workTimes.push({ y: Number(v.work_time), id: v.id });
+      targetTimes.push({ y: Number(v.target_time), id: v.id });
+      overtimes.push({ y: Number(v.overtime), id: v.id });
     });
 
     Highcharts.chart('area-ysp-container-chart', {
@@ -155,7 +193,19 @@ document.addEventListener('DOMContentLoaded', async function () {
       }, {
         name: 'Overtime (Hour)',
         data: overtimes
-      }]
+      }],
+      plotOptions: {
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function () {
+                onSeriesDataClick(this.id)
+              }
+            }
+          }
+        }
+      }
     });
   }
 
@@ -163,6 +213,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const yspTable = yspTableContainer.DataTable({
     // Filter data by startdate and enddate
     fnInitComplete: function (oSettings, json) {
+      console.log(json);
       const startDate = yspTableContainer.data('startdate');
       const endDate = yspTableContainer.data('enddate');
 
