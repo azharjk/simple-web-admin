@@ -9,3 +9,37 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
+
+/* Drawer */
+.drawer {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(228, 228, 228);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+/* Modal style */
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}

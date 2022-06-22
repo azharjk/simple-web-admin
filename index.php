@@ -15,6 +15,18 @@
 </head>
 
 <body class="p-4">
+  <div id="drawer" class="drawer">
+    <div class="p-4">
+      <div class="d-flex justify-content-end">
+        <button id="drawer-close-btn" class="btn btn-primary text-white">&times;</button>
+      </div>
+      <div>
+        <h3 id="drawer-title"></h3>
+        <div id="drawer-data" style="display: grid; gap: 1rem;">
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="grid">
     <div class="">
       <div class="p-3 bg-secondary">
@@ -25,9 +37,23 @@
             <span class="d-block text-white">azharumuhammad@gmail.com</span>
           </div>
         </div>
-        <button class="mt-3 d-block btn btn-primary w-100">10 notifications</button>
+        <button id="notification-btn" class="mt-3 d-block btn btn-primary w-100"></button>
         <button class="mt-3 d-block btn btn-success w-100">60 inbox</button>
-        <button class="mt-5 d-block btn btn-danger w-100 text-uppercase">Exit</button>
+        <button id="modal-btn" class="mt-5 d-block btn btn-danger w-100 text-uppercase">Exit</button>
+        <!-- Modal -->
+        <div id="modal" class="modal d-none">
+          <div class="modal-content">
+            <div class="d-flex justify-content-end">
+              <button id="modal-exit-btn" class="btn btn-secondary">&times;</button>
+            </div>
+            <div class="text-center">
+              <p>Are you sure you want to exit?</p>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-danger text-uppercase">Exit</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="">
@@ -67,55 +93,7 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody style="height: 100%">
-              <tr>
-                <td>1</td>
-                <td>0</td>
-                <td>0</td>
-                <td>100</td>
-                <td>3</td>
-                <td>Sunday</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>8</td>
-                <td>8</td>
-                <td>100</td>
-                <td>3</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>8</td>
-                <td>8</td>
-                <td>100</td>
-                <td>1</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>0</td>
-                <td>0</td>
-                <td>100</td>
-                <td>3</td>
-                <td>Sunday</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>8</td>
-                <td>8</td>
-                <td>100</td>
-                <td>3</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>8</td>
-                <td>8</td>
-                <td>100</td>
-                <td>1</td>
-                <td></td>
-              </tr>
+            <tbody>
             </tbody>
           </table>
         </div>
@@ -142,7 +120,7 @@
             <select class="form-select" name="enddate" id="enddate">
               <?php if (isset($_GET['enddate'])) : ?>
                 <option value="<?php echo $_GET['enddate'] ?>"><?php echo $_GET['enddate'] ?></option>
-              <?php else: ?>
+              <?php else : ?>
                 <option value="31">31</option>
               <?php endif ?>
               <?php for ($i = 1; $i <= 31; $i++) : ?>
@@ -207,6 +185,8 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="/js/app.js"></script>
+  <script src="/js/notification.js"></script>
+  <script src="/js/modal-exit.js"></script>
 </body>
 
 </html>
