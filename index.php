@@ -124,14 +124,13 @@
   </section>
   <section class="container-fluid p-0 mt-4 border">
     <header class="d-flex justify-content-between align-items-center p-4">
-      <!-- FIXME: Unset the $_POST or do something to clear the filter -->
-      <form action="index.php" method="post">
+      <form action="index.php" method="get">
         <div class="d-flex align-items-end">
           <div class="me-4 form-group">
             <label class="text-uppercase" for="startdate">Startdate</label>
             <select class="form-select" name="startdate" id="startdate">
-              <?php if (isset($_POST['startdate'])) : ?>
-                <option value="<?php echo $_POST['startdate'] ?>"><?php echo $_POST['startdate'] ?></option>
+              <?php if (isset($_GET['startdate'])) : ?>
+                <option value="<?php echo $_GET['startdate'] ?>"><?php echo $_GET['startdate'] ?></option>
               <?php endif ?>
               <?php for ($i = 1; $i <= 31; $i++) : ?>
                 <option value="<?php echo $i ?>"><?php echo $i ?></option>
@@ -141,8 +140,8 @@
           <div class="me-4 form-group">
             <label class="text-uppercase" for="enddate">Enddate</label>
             <select class="form-select" name="enddate" id="enddate">
-              <?php if (isset($_POST['enddate'])) : ?>
-                <option value="<?php echo $_POST['enddate'] ?>"><?php echo $_POST['enddate'] ?></option>
+              <?php if (isset($_GET['enddate'])) : ?>
+                <option value="<?php echo $_GET['enddate'] ?>"><?php echo $_GET['enddate'] ?></option>
               <?php endif ?>
               <?php for ($i = 1; $i <= 31; $i++) : ?>
                 <option value="<?php echo $i ?>"><?php echo $i ?></option>
@@ -156,7 +155,7 @@
       <!-- FIXME: Add table icon -->
     </header>
     <div class="p-4">
-      <table id="ysp-table" class="display" style="width:100%" data-startdate="<?php echo isset($_POST['startdate']) ? $_POST['startdate'] : 1 ?>" data-enddate="<?php echo isset($_POST['enddate']) ? $_POST['enddate'] : 31 ?>">
+      <table id="ysp-table" class="display" style="width:100%" data-startdate="<?php echo isset($_GET['startdate']) ? $_GET['startdate'] : 1 ?>" data-enddate="<?php echo isset($_GET['enddate']) ? $_GET['enddate'] : 31 ?>">
         <thead>
           <tr>
             <th>Date</th>
