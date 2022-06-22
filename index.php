@@ -139,6 +139,9 @@
           <div class="me-4 form-group">
             <label class="text-uppercase" for="startdate">Startdate</label>
             <select class="form-select" name="startdate" id="startdate">
+              <?php if (isset($_POST['startdate'])) : ?>
+                <option value="<?php echo $_POST['startdate'] ?>"><?php echo $_POST['startdate'] ?></option>
+              <?php endif ?>
               <?php for ($i = 1; $i <= 31; $i++) : ?>
                 <option value="<?php echo $i ?>"><?php echo $i ?></option>
               <?php endfor ?>
@@ -147,6 +150,9 @@
           <div class="me-4 form-group">
             <label class="text-uppercase" for="enddate">Enddate</label>
             <select class="form-select" name="enddate" id="enddate">
+              <?php if (isset($_POST['enddate'])) : ?>
+                <option value="<?php echo $_POST['enddate'] ?>"><?php echo $_POST['enddate'] ?></option>
+              <?php endif ?>
               <?php for ($i = 1; $i <= 31; $i++) : ?>
                 <option value="<?php echo $i ?>"><?php echo $i ?></option>
               <?php endfor ?>

@@ -45,7 +45,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   $('#dp-table').DataTable({
     pageLength: 5,
-    'scrollX': true
+    ajax: {
+      url: '/api/daily_performances10.json',
+      dataSrc: '',
+    },
+    columns: [
+      { data: 'date' },
+      { data: 'target_time' },
+      { data: 'work_time' },
+      { data: 'achievement' },
+      { data: 'overtime' },
+      { data: 'day' }
+    ]
   });
 
   const onSeriesDataClick = (id) => {
@@ -231,7 +242,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     },
     pageLength: 5,
     ajax: {
-      url: '/api/performances10.json',
+      url: '/api/year_performances10.json',
       dataSrc: '',
     },
     columns: [
@@ -244,9 +255,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     ]
   });
 
+  $('.dataTables_filter input').each(function () {
+    const el = $(this)
+    if (el.attr('aria-controls') === 'dp-table') {
+      el.attr('id', 'dp-table-input');
+    } else if (el.attr('aria-controls') === 'ysp-table') {
+      el.attr('id', 'ysp-table-input');
+    }
+  });
+
   // Search filter
   // FIXME: This is bad because its impacting other filter input
-  $('.dataTables_filter input').unbind().keyup(function () {
+  $('#ysp-table-input').unbind().keyup(function () {
     var value = $(this).val();
     const result = yspTable.search(value).rows({ search: 'applied' });
 
@@ -256,11 +276,15 @@ document.addEventListener('DOMContentLoaded', async function () {
         searchData.push(yspTable.data()[v]);
       });
 
-      renderYspColumnChart(searchData);
-      renderYspPieChart(searchData);
-      renderYspAreaChart(searchData);
+      setTimeout(() => {
+        renderYspColumnChart(searchData);
+        renderYspPieChart(searchData);
+        renderYspAreaChart(searchData);
+      }, 500);
     });
 
     yspTable.draw();
   });
+
+
 });
