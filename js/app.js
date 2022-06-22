@@ -1,49 +1,121 @@
-const generateDayList = (n) => {
-  const ret = []
-  for (let i = 0; i < n; i++) {
-    ret.push(`Day ${i + 1}`);
-  }
-
-  return ret;
-}
-
-const generateRandomData = (n, min, max) => {
-  const ret = []
-  for (let i = 0; i < n; i++) {
-    ret.push(Math.floor(Math.random() * (max - min + 1) + min));
-  }
-
-  return ret;
-}
-
 document.addEventListener('DOMContentLoaded', async function () {
-  // Daily Performance Chart
-  // FIXME: Still have unused table field
-  $('#dp-container-chart').highcharts({
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: 'Daily Performance'
-    },
-    xAxis: {
-      categories: generateDayList(8)
-    },
-    yAxis: {
-      title: {
-        text: 'Work Time (Hour)'
-      }
-    },
-    series: [{
-      name: 'Work Time (Hour)',
-      data: generateRandomData(8, 0, 8)
-    }, {
-      name: 'Target Time (Hour)',
-      data: generateRandomData(8, 0, 8)
-    }]
+  // FIXME: Clean up this
+  $('#column-chart-btn').click(function () {
+    $('#dp-column-container-chart').removeClass('d-none');
+    $(this).removeClass('btn-secondary');
+    $(this).addClass('btn-primary');
+    $('#pie-chart-btn').addClass('btn-secondary');
+    $('#dp-pie-container-chart').addClass('d-none');
   });
 
-  $('#dp-table').DataTable({
+  $('#pie-chart-btn').click(function () {
+    $('#dp-pie-container-chart').removeClass('d-none');
+    $(this).removeClass('btn-secondary');
+    $(this).addClass('btn-primary');
+    $('#column-chart-btn').addClass('btn-secondary');
+    $('#dp-column-container-chart').addClass('d-none');
+  });
+
+  // FIXME: All render chart function can be a same function
+  const renderDpColumnChart = (data) => {
+    const categories = []
+    const workTimes = []
+    const targetTimes = []
+
+    data.map((v) => {
+      categories.push(`Day ${v.date}`);
+      workTimes.push({ y: Number(v.work_time), id: v.id });
+      targetTimes.push({ y: Number(v.target_time), id: v.id });
+    });
+
+    $('#dp-column-container-chart').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Daily Performance'
+      },
+      xAxis: {
+        categories
+      },
+      yAxis: {
+        title: {
+          text: 'Work Time (Hour)'
+        }
+      },
+      series: [{
+        name: 'Work Time (Hour)',
+        data: workTimes
+      }, {
+        name: 'Target Time (Hour)',
+        data: targetTimes
+      }],
+      plotOptions: {
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function () {
+                onSeriesDataClick(this.id, 'daily-performance');
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  const renderDpPieChart = (data) => {
+    const workTimeAndAchievement = []
+    data.map((v) => {
+      workTimeAndAchievement.push({ y: Number(v.achievement), id: v.id, name: `Day ${v.date}` });
+    });
+
+    $('#dp-pie-container-chart').highcharts({
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: 'Daily Summary Achievement'
+      },
+      series: [{
+        name: 'Work Time (Hour)',
+        data: workTimeAndAchievement
+      }],
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+          }
+        },
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function () {
+                onSeriesDataClick(this.id, 'daily-performance');
+              }
+            }
+          }
+        }
+      },
+    });
+  }
+
+  // Daily Performance Chart
+  // FIXME: Still have unused table field
+
+  const dpTable = $('#dp-table').DataTable({
+    fnInitComplete: function (oSettings, json) {
+      renderDpColumnChart(json);
+      renderDpPieChart(json);
+    },
     pageLength: 5,
     ajax: {
       url: '/api/daily_performances10.json',
@@ -59,20 +131,27 @@ document.addEventListener('DOMContentLoaded', async function () {
     ]
   });
 
-  const onSeriesDataClick = (id) => {
+  // FIXME: Can it be one single function??
+  const onSeriesDataClick = (id, type) => {
     let chosenData;
+    let table = type === 'daily-performance' ? dpTable : yspTable;
 
-    yspTable.data().map((data) => {
+    table.data().map((data) => {
       if (data.id === id) chosenData = data;
     });
 
-    yspTable.clear();
-    yspTable.rows.add([chosenData]);
-    yspTable.draw();
+    table.clear();
+    table.rows.add([chosenData]);
+    table.draw();
 
-    renderYspColumnChart([chosenData]);
-    renderYspPieChart([chosenData]);
-    renderYspAreaChart([chosenData]);
+    if (type === 'daily-performance') {
+      renderDpColumnChart([chosenData]);
+      renderDpPieChart([chosenData]);
+    } else {
+      renderYspColumnChart([chosenData]);
+      renderYspPieChart([chosenData]);
+      renderYspAreaChart([chosenData]);
+    }
   }
 
   // Year Summary Performance
@@ -115,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           point: {
             events: {
               click: function () {
-                onSeriesDataClick(this.id)
+                onSeriesDataClick(this.id, 'year-performance');
               }
             }
           }
@@ -158,7 +237,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           point: {
             events: {
               click: function () {
-                onSeriesDataClick(this.id)
+                onSeriesDataClick(this.id, 'year-performance');
               }
             }
           }
@@ -211,7 +290,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           point: {
             events: {
               click: function () {
-                onSeriesDataClick(this.id)
+                onSeriesDataClick(this.id, 'year-performance');
               }
             }
           }
@@ -224,7 +303,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const yspTable = yspTableContainer.DataTable({
     // Filter data by startdate and enddate
     fnInitComplete: function (oSettings, json) {
-      console.log(json);
       const startDate = yspTableContainer.data('startdate');
       const endDate = yspTableContainer.data('enddate');
 
@@ -264,7 +342,27 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
-  // Search filter
+  // Search filter Daily Performance
+  $('#dp-table-input').unbind().keyup(function () {
+    var value = $(this).val();
+    const result = dpTable.search(value).rows({ search: 'applied' });
+
+    result.map(vs => {
+      const searchData = []
+      vs.map(v => {
+        searchData.push(yspTable.data()[v]);
+      });
+
+      setTimeout(() => {
+        renderDpColumnChart(searchData);
+        renderDpPieChart(searchData);
+      }, 500);
+    });
+
+    dpTable.draw();
+  });
+
+  // Search filter Year Summary Performance
   // FIXME: This is bad because its impacting other filter input
   $('#ysp-table-input').unbind().keyup(function () {
     var value = $(this).val();
@@ -285,6 +383,4 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     yspTable.draw();
   });
-
-
 });

@@ -11,19 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
-  <style>
-    .grid {
-      display: grid;
-      grid-template-columns: 25rem 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="p-4">
@@ -43,17 +31,20 @@
       </div>
     </div>
     <div class="">
-      <p class="d-inline-block border-top border-bottom border-end">Assisting Your Business From The Heart :: 03 Agustus 2018 Gathering</p>
+      <span class="running-text-container">
+        <p class="running-text text-nowrap border-top border-bottom border-end">Assisting Your Business From The Heart :: 03 Agustus 2018 Gathering</p>
+      </span>
       <div class="border p-3">
         <header class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
-            <button class="btn btn-primary text-uppercase">Column</button>
-            <button class="btn btn-secondary text-uppercase">Pie</button>
+            <button id="column-chart-btn" class="btn btn-primary text-uppercase">Column</button>
+            <button id="pie-chart-btn" class="btn btn-secondary text-uppercase">Pie</button>
           </div>
           <span class="text-uppercase">Daily Performance</span>
         </header>
         <div class="mt-3 border p-2">
-          <div id="dp-container-chart" style="width: 100%; height: 400px;"></div>
+          <div id="dp-column-container-chart" style="width: 100%; height: 400px;"></div>
+          <div id="dp-pie-container-chart" class="d-none" style="width: 100%; height: 400px;">Pie</div>
         </div>
       </div>
     </div>
