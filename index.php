@@ -142,6 +142,8 @@
             <select class="form-select" name="enddate" id="enddate">
               <?php if (isset($_GET['enddate'])) : ?>
                 <option value="<?php echo $_GET['enddate'] ?>"><?php echo $_GET['enddate'] ?></option>
+              <?php else: ?>
+                <option value="31">31</option>
               <?php endif ?>
               <?php for ($i = 1; $i <= 31; $i++) : ?>
                 <option value="<?php echo $i ?>"><?php echo $i ?></option>
