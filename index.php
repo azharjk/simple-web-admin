@@ -183,6 +183,39 @@
       </div>
     </div>
   </section>
+  <section class="grid-2 mt-4 border p-4">
+    <div>
+      <header class="d-flex justify-content-center border py-2">
+        <span class="text-uppercase">Notification</span>
+      </header>
+      <div class="border p-4">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <input id="notification-search-input" class="form-control" placeholder="Search" type="text">
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="me-4 form-check">
+              <label class="form-check-label text-uppercase text-danger" for="notification-danger">Danger</label>
+              <input id="notification-checkbox-danger" class="form-check-input border-danger" type="checkbox" name="" id="notification-danger">
+            </div>
+            <div class="me-4 form-check">
+              <label class="form-check-label text-uppercase text-warning" for="notification-warning">Warning</label>
+              <input id="notification-checkbox-warning" checked class="form-check-input border-warning" type="checkbox" name="" id="notification-warning">
+            </div>
+            <div class="form-check">
+              <label class="form-check-label text-uppercase text-success" for="notification-safe">Safe</label>
+              <input id="notification-checkbox-safe" checked class="form-check-input border-success" type="checkbox" name="" id="notification-safe">
+            </div>
+          </div>
+        </div>
+        <div id="notification-container" class="mt-4">
+        </div>
+      </div>
+    </div>
+    <div>
+      Inbox
+    </div>
+  </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="/js/app.js"></script>
   <script src="/js/notification.js"></script>

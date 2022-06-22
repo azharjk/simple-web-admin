@@ -363,7 +363,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
   // Search filter Year Summary Performance
-  // FIXME: This is bad because its impacting other filter input
   $('#ysp-table-input').unbind().keyup(function () {
     var value = $(this).val();
     const result = yspTable.search(value).rows({ search: 'applied' });
