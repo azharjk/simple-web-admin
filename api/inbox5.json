@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "content": "Voluptate saepe aperiam nihil qui.",
+    "status": "SAFE",
+    "created_at": "2022-06-23T08:48:09.000000Z",
+    "updated_at": "2022-06-23T08:48:09.000000Z"
+  },
+  {
+    "id": 2,
+    "content": "Beatae asperiores ut est nam rerum est totam.",
+    "status": "SAFE",
+    "created_at": "2022-06-23T08:48:09.000000Z",
+    "updated_at": "2022-06-23T08:48:09.000000Z"
+  },
+  {
+    "id": 3,
+    "content": "Earum est aperiam neque magni sunt ut deserunt.",
+    "status": "DANGER",
+    "created_at": "2022-06-23T08:48:09.000000Z",
+    "updated_at": "2022-06-23T08:48:09.000000Z"
+  },
+  {
+    "id": 4,
+    "content": "Tempore eum odit aut excepturi ab voluptas et.",
+    "status": "SAFE",
+    "created_at": "2022-06-23T08:48:09.000000Z",
+    "updated_at": "2022-06-23T08:48:09.000000Z"
+  },
+  {
+    "id": 5,
+    "content": "Porro odio dolorum iusto sit a corrupti rerum.",
+    "status": "SAFE",
+    "created_at": "2022-06-23T08:48:09.000000Z",
+    "updated_at": "2022-06-23T08:48:09.000000Z"
+  }
+]

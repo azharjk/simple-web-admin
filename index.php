@@ -29,7 +29,7 @@
   </div>
   <section class="grid">
     <div class="">
-      <div class="p-3 bg-secondary">
+      <div class="p-3 bg-red">
         <div class="d-flex">
           <img class="me-3" style="width: 150px; height: 150px;" src="/assets/profile.JPG" alt="Image profile">
           <div>
@@ -37,8 +37,8 @@
             <span class="d-block text-white">azharumuhammad@gmail.com</span>
           </div>
         </div>
-        <button id="notification-btn" class="mt-3 d-block btn btn-primary w-100"></button>
-        <button class="mt-3 d-block btn btn-success w-100">60 inbox</button>
+        <button id="notification-btn" class="mt-3 d-block btn btn-primary w-100">Loading...</button>
+        <button id="inbox-btn" class="mt-3 d-block btn btn-success w-100">Loading...</button>
         <button id="modal-btn" class="mt-5 d-block btn btn-danger w-100 text-uppercase">Exit</button>
         <!-- Modal -->
         <div id="modal" class="modal d-none">
@@ -58,9 +58,9 @@
     </div>
     <div class="">
       <span class="running-text-container">
-        <p class="running-text text-nowrap border-top border-bottom border-end">Assisting Your Business From The Heart :: 03 Agustus 2018 Gathering</p>
+        <p class="running-text text-nowrap border-2 border-top border-bottom border-end border-red">Assisting Your Business From The Heart :: 03 Agustus 2018 Gathering</p>
       </span>
-      <div class="border p-3">
+      <div class="border border-2 border-red p-3">
         <header class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
             <button id="column-chart-btn" class="btn btn-primary text-uppercase">Column</button>
@@ -68,7 +68,7 @@
           </div>
           <span class="text-uppercase">Daily Performance</span>
         </header>
-        <div class="mt-3 border p-2">
+        <div class="mt-3 border border-2 border-red p-2">
           <div id="dp-column-container-chart" style="width: 100%; height: 400px;"></div>
           <div id="dp-pie-container-chart" class="d-none" style="width: 100%; height: 400px;">Pie</div>
         </div>
@@ -76,7 +76,7 @@
     </div>
     <div class="">
       <p class="d-inline-block border-top border-bottom border-end text-white border-white">Assisting Your Business From The Heart :: 03 Agustus 2018 Gathering</p>
-      <div class="border p-3">
+      <div class="border p-3 border-2 border-red">
         <header class="d-flex justify-content-end">
           <span class="text-uppercase">Daily Performance</span>
           <!-- FIXME: Add table icon -->
@@ -100,7 +100,7 @@
       </div>
     </div>
   </section>
-  <section class="container-fluid p-0 mt-4 border">
+  <section class="container-fluid p-0 mt-4 border border-2 border-red">
     <header class="d-flex justify-content-between align-items-center p-4">
       <form action="index.php" method="get">
         <div class="d-flex align-items-end">
@@ -151,44 +151,44 @@
       </table>
     </div>
   </section>
-  <section class="mt-4 border">
+  <section class="mt-4 border border-2 border-red">
     <header class="d-flex justify-content-end p-4">
       <span class="text-uppercase">Year summary performance</span>
       <!-- FIXME: Add table icon -->
     </header>
     <div class="grid-3 p-3">
       <div>
-        <div class="text-uppercase text-center border">
+        <div class="text-uppercase text-center border border-2 border-red">
           Column
         </div>
-        <div class="border">
+        <div class="border border-2 border-red">
           <div id="column-ysp-container-chart" style="width: 100%; height: 400px;"></div>
         </div>
       </div>
       <div>
-        <div class="text-uppercase text-center border">
+        <div class="text-uppercase text-center border border-2 border-red">
           Pie
         </div>
-        <div class="border">
+        <div class="border border-2 border-red">
           <div id="pie-ysp-container-chart" style="width: 100%; height: 400px;"></div>
         </div>
       </div>
       <div>
-        <div class="text-uppercase text-center border">
+        <div class="text-uppercase text-center border-2 border-red border">
           Area
         </div>
-        <div class="border">
+        <div class="border border-2 border-red">
           <div id="area-ysp-container-chart" style="width: 100%; height: 400px;"></div>
         </div>
       </div>
     </div>
   </section>
-  <section class="grid-2 mt-4 border p-4">
+  <section class="grid-2 mt-4 border-2 border-red border p-4">
     <div>
-      <header class="d-flex justify-content-center border py-2">
+      <header class="d-flex justify-content-center border-2 border-red border py-2">
         <span class="text-uppercase">Notification</span>
       </header>
-      <div class="border p-4">
+      <div class="border p-4 border-2 border-red">
         <div class="d-flex align-items-center justify-content-between">
           <div>
             <input id="notification-search-input" class="form-control" placeholder="Search" type="text">
@@ -213,12 +213,25 @@
       </div>
     </div>
     <div>
-      Inbox
+      <header class="d-flex justify-content-center border-2 border-red border py-2">
+        <span class="text-uppercase">Inbox</span>
+      </header>
+      <div class="border p-4 border-2 border-red">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="w-100">
+            <input id="inbox-search-input" class="form-control" placeholder="Search" type="text">
+          </div>
+        </div>
+        <div id="inbox-container" class="mt-4">
+        </div>
+      </div>
     </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script src="/js/utils.js"></script>
   <script src="/js/app.js"></script>
   <script src="/js/notification.js"></script>
+  <script src="/js/inbox.js"></script>
   <script src="/js/modal-exit.js"></script>
 </body>
 

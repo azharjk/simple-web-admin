@@ -1,20 +1,8 @@
-function formatDate(date) {
-  const dateObj = new Date(date);
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const months = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+function createNotificationCard(data) {
+  const status = data.status;
+  const content = data.content
+  const date = data.created_at;
 
-  let dd = dateObj.getDate();
-  let mm = dateObj.getMonth() + 1;
-  let yyyy = dateObj.getFullYear();
-
-  if (dd < 10) dd = '0' + dd;
-
-  return `${days[dateObj.getDay()]}, ${dd} ${months[mm]} ${yyyy}`;
-}
-
-function createNotificationCard(date, content, status) {
   let color = '';
 
   switch (status) {
@@ -37,34 +25,11 @@ function createNotificationCard(date, content, status) {
 document.addEventListener('DOMContentLoaded', function () {
   const notificationBtn = $('#notification-btn');
 
-  function openNotificationDrawer(data) {
-    $('#drawer').css('width', '450px');
-
-    $('#drawer-title').text('Notifications');
-
-    data.map(v => {
-      $('#drawer-data').append(createNotificationCard(v.created_at, v.content, v.status));
-    });
-  }
-
-  function closeNotificationDrawer() {
-    $('#drawer').css('width', '0px');
-    $('#drawer-data').empty();
-  }
-
   function renderNotificationButton(data) {
     notificationBtn.text(`${data.length} notifications`);
 
     notificationBtn.click(function () {
-      openNotificationDrawer(data);
-    });
-
-    $('#drawer-close-btn').click(closeNotificationDrawer);
-  }
-
-  function renderNotificationList(data) {
-    data.map(v => {
-      $('#notification-container').append(createNotificationCard(v.created_at, v.content, v.status));
+      openDrawer(data, createNotificationCard, 'Notifications');
     });
   }
 
@@ -98,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     $('#notification-container').empty();
-    renderNotificationList(result);
+    renderList('#notification-container', result, createNotificationCard);
   }
 
   function bindFilterNotification(data) {
@@ -112,12 +77,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       setTimeout(() => {
         $('#notification-container').empty();
-        renderNotificationList(result);
+        renderList('#notification-container', result, createNotificationCard);
       }, 500);
     });
 
     $('#notification-checkbox-danger').change(function () {
-      console.log('danger: ', this.checked);
       renderCheckboxChange(data);
     });
 
@@ -137,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $.ajax('/api/notifications5.json', {
     success: function (data, status, xhr) {
       renderNotificationButton(data);
-      renderNotificationList(data);
+      renderList('#notification-container', data, createNotificationCard);
       bindFilterNotification(data);
     }
   });
