@@ -23,10 +23,18 @@ function createNotificationCard(data) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const notificationBtn = $('#notification-btn');
+  const notificationBtn = $('.js-notification-btn');
 
   function renderNotificationButton(data) {
-    notificationBtn.text(`${data.length} notifications`);
+    notificationBtn.each(function (idx, obj) {
+      const elem = $(obj);
+
+      if (elem.hasClass('js-only-length')) {
+        elem.text(`${data.length}`);
+      } else {
+        elem.text(`${data.length} notifications`);
+      }
+    });
 
     notificationBtn.click(function () {
       openDrawer(data, createNotificationCard, 'Notifications');
@@ -72,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Search is case sensitive
       const result = data.filter((v) => {
-        return v.content.includes(value);
+        return v.content.toLowerCase().includes(value.toLowerCase());
       });
 
       setTimeout(() => {

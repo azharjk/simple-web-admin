@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="p-4">
+<body>
   <div id="drawer" class="drawer">
     <div class="p-4">
       <div class="d-flex justify-content-end">
@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <section class="grid">
+  <section class="grid m-4">
     <div class="">
       <div class="p-3 bg-red">
         <div class="d-flex">
@@ -37,8 +37,8 @@
             <span class="d-block text-white">azharumuhammad@gmail.com</span>
           </div>
         </div>
-        <button id="notification-btn" class="mt-3 d-block btn btn-primary w-100">Loading...</button>
-        <button id="inbox-btn" class="mt-3 d-block btn btn-success w-100">Loading...</button>
+        <button class="js-notification-btn mt-3 d-block btn btn-primary w-100">Loading...</button>
+        <button class="js-inbox-btn mt-3 d-block btn btn-success w-100">Loading...</button>
         <button id="modal-btn" class="mt-5 d-block btn btn-danger w-100 text-uppercase">Exit</button>
         <!-- Modal -->
         <div id="modal" class="modal d-none">
@@ -100,7 +100,7 @@
       </div>
     </div>
   </section>
-  <section class="container-fluid p-0 mt-4 border border-2 border-red">
+  <section class="p-0 m-4 border border-2 border-red">
     <header class="d-flex justify-content-between align-items-center p-4">
       <form action="index.php" method="get">
         <div class="d-flex align-items-end">
@@ -151,7 +151,7 @@
       </table>
     </div>
   </section>
-  <section class="mt-4 border border-2 border-red">
+  <section class="m-4 border border-2 border-red">
     <header class="d-flex justify-content-end p-4">
       <span class="text-uppercase">Year summary performance</span>
       <!-- FIXME: Add table icon -->
@@ -183,7 +183,7 @@
       </div>
     </div>
   </section>
-  <section class="grid-2 mt-4 border-2 border-red border p-4">
+  <section class="grid-2 m-4">
     <div>
       <header class="d-flex justify-content-center border-2 border-red border py-2">
         <span class="text-uppercase">Notification</span>
@@ -208,7 +208,7 @@
             </div>
           </div>
         </div>
-        <div id="notification-container" class="mt-4">
+        <div id="notification-container" class="mt-4 list-container">
         </div>
       </div>
     </div>
@@ -222,17 +222,32 @@
             <input id="inbox-search-input" class="form-control" placeholder="Search" type="text">
           </div>
         </div>
-        <div id="inbox-container" class="mt-4">
+        <div id="inbox-container" class="mt-4 list-container">
         </div>
       </div>
     </div>
   </section>
+  <footer class="d-flex py-3 px-4 justify-content-between align-items-center bg-red">
+    <span class="text-white text-uppercase">Tech Mayantara Asia</span>
+    <div class="d-flex align-items-center" style="gap: 1rem;">
+      <div class="me-4">
+        <button class="js-notification-btn js-only-length btn me-2 btn-primary rounded-circle border border-white border-2" style="width: 3rem; height: 3rem;">0</button>
+        <button class="js-inbox-btn js-only-length btn btn-success rounded-circle border border-white border-2" style="width: 3rem; height: 3rem;">0</button>
+      </div>
+      <div class="d-flex flex-column">
+        <span id="date" class="text-white text-uppercase">Senin, 01 - Jan - 2018</span>
+        <span id="time" class="text-end text-white">07:00</span>
+      </div>
+    </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="/js/utils.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="/js/daily-performance.js"></script>
+  <script src="/js/year-performance.js"></script>
   <script src="/js/notification.js"></script>
   <script src="/js/inbox.js"></script>
   <script src="/js/modal-exit.js"></script>
+  <script src="/js/date.js"></script>
 </body>
 
 </html>

@@ -14,11 +14,13 @@ function formatDate(date) {
   return `${days[dateObj.getDay()]}, ${dd} ${months[mm]} ${yyyy}`;
 }
 
+// FIXME: Need some way to make the drawer close when its get open again. 
 function openDrawer(data, renderFn, title) {
   $('#drawer').css('width', '450px');
 
   $('#drawer-title').text(title);
 
+  $('#drawer-data').empty();
   data.map(v => {
     $('#drawer-data').append(renderFn(v));
   });
@@ -34,5 +36,24 @@ function closeDrawer() {
 function renderList(selector, data, renderFn) {
   data.map(v => {
     $(selector).append(renderFn(v));
+  });
+}
+
+// FIXME: Can it be one single function??
+const onSeriesDataClick = (id, instanceTable, renderFns) => {
+  let chosenData;
+  let table = instanceTable;
+  console.log(table);
+
+  table.data().map((data) => {
+    if (data.id === id) chosenData = data;
+  });
+
+  table.clear();
+  table.rows.add([chosenData]);
+  table.draw();
+
+  renderFns.map((renderFn) => {
+    renderFn([chosenData]);
   });
 }

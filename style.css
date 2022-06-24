@@ -64,3 +64,8 @@
 .border-red {
   border-color: var(--my-bg-primary) !important;
 }
+
+.list-container {
+  height: 20rem;
+  overflow-y: scroll;
+}

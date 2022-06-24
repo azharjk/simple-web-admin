@@ -2,9 +2,9 @@ function createInboxCard(data) {
   const date = data.created_at;
   const content = data.content;
 
-  return `<div class="d-flex border p-2 align-items-center border-primary">
+  return `<div class="d-flex border p-2 align-items-center border-success">
             <div class="me-4">
-              <span class="d-block border border-primary" style="width: 50px; height: 50px;"></span>
+              <span class="d-block border border-success bg-secondary" style="width: 50px; height: 50px;"></span>
             </div>
             <div>
               <span class="text-uppercase" style="font-weight: bold;">${formatDate(date)}</span>
@@ -14,10 +14,18 @@ function createInboxCard(data) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const inboxBtn = $('#inbox-btn');
+  const inboxBtn = $('.js-inbox-btn');
 
   function renderInboxButton(data) {
-    inboxBtn.text(`${data.length} inbox`);
+    inboxBtn.each(function (idx, obj) {
+      const elem = $(obj);
+
+      if (elem.hasClass('js-only-length')) {
+        elem.text(`${data.length}`);
+      } else {
+        elem.text(`${data.length} inbox`);
+      }
+    });
 
     inboxBtn.click(function () {
       openDrawer(data, createInboxCard, 'Inbox');
@@ -30,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Search is case sensitive
       const result = data.filter((v) => {
-        return v.content.includes(value);
+        return v.content.toLowerCase().includes(value.toLowerCase());
       });
 
       setTimeout(() => {
